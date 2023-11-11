@@ -1,0 +1,7 @@
+{
+  "name": "nfc-business-card-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
