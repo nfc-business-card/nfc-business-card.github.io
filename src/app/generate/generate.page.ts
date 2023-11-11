@@ -5,13 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import {ActivatedRoute, Router} from "@angular/router";
 import { QRCodeModule } from 'angularx-qrcode';
 import { Clipboard } from '@capacitor/clipboard';
+import {IonButton, IonInput, IonItem, IonLabel, IonList, IonModal, IonTextarea} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-generate',
   templateUrl: './generate.page.html',
   styleUrls: ['./generate.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, QRCodeModule]
+  imports: [IonicModule, CommonModule, FormsModule, QRCodeModule, IonButton, IonList, IonItem, IonInput, IonModal, IonTextarea, IonLabel]
 })
 export class GeneratePage implements OnInit {
   protected firstName: string | null = 'John'; // = null

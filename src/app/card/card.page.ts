@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import {  ActivatedRoute, Router } from '@angular/router';
+import {IonButton, IonCard, IonCardContent, IonInput, IonItem, IonList, IonModal} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.page.html',
   styleUrls: ['./card.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, IonCardContent, IonCard, IonButton, IonModal, IonList, IonItem, IonInput]
 })
 export class CardPage implements OnInit {
   protected encodedBusinessCard: string | null = null
