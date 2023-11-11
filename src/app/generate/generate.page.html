@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-loading message="Tap NFC tag to write!" [isOpen]="writingNfc"></ion-loading>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Generate New NFC Business Card Details</ion-title>
@@ -36,7 +37,6 @@
     Generate
   </ion-button>
   <ion-modal [isOpen]="link !== null" (didDismiss)="link = null">
-    <ion-loading message="Tap NFC tag to write!" [isOpen]="writingNfc"></ion-loading>
     <ng-template>
       <ion-header>
         <ion-toolbar>

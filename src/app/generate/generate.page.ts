@@ -77,12 +77,23 @@ export class GeneratePage implements OnInit {
   }
 
   async writeNfc() {
-    // @ts-ignore
-    const ndef = new NDEFReader();
+    const abortController = new AbortController();
+    abortController.signal.onabort = event => {
+      this.writingNfc = false;
+    };
+
+    this.writingNfc = true;
+    let t = setTimeout(() => {
+      if(this.writingNfc) {
+        abortController.abort();
+      }
+    }, 5000);
     try {
-      this.writingNfc = true;
+      // @ts-ignore
+      const ndef = new NDEFReader();
       await ndef.write({
-        records: [{recordType: "url", data: this.link!}]
+        records: [{recordType: "url", data: this.link!}],
+        signal: abortController.signal
       });
       this.writingNfc = false;
       await Dialog.alert({
@@ -98,5 +109,7 @@ export class GeneratePage implements OnInit {
         message: e.message,
       });
     }
+    clearTimeout(t);
+    this.writingNfc = false;
   }
 }
