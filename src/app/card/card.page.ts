@@ -60,6 +60,11 @@ export class CardPage implements OnInit {
     card += "END:VCARD";
 
     // @ts-ignore
-    window.location = "data:text/vcard;base64,"+btoa(card);
+    // window.location = "data:text/vcard;base64,"+btoa(card);
+
+    let link = document.createElement('a');
+    link.download = 'card_'+this.businessCard?.f+'.vcf';
+    link.href = "data:text/vcard;base64,"+btoa(card);
+    link.click();
   }
 }
