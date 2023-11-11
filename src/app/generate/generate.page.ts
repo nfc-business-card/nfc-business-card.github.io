@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {CommonModule, PlatformLocation} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {IonicModule, Platform} from '@ionic/angular';
-import {ActivatedRoute, Router} from "@angular/router";
 import { QRCodeModule } from 'angularx-qrcode';
 import { Clipboard } from '@capacitor/clipboard';
 import {
+  IonAlert,
   IonButton,
   IonInput,
   IonItem,
@@ -15,14 +15,13 @@ import {
   IonModal,
   IonTextarea
 } from "@ionic/angular/standalone";
-import {Dialog} from "@capacitor/dialog";
 
 @Component({
   selector: 'app-generate',
   templateUrl: './generate.page.html',
   styleUrls: ['./generate.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, QRCodeModule, IonButton, IonList, IonItem, IonInput, IonModal, IonTextarea, IonLabel, IonLoading]
+  imports: [IonicModule, CommonModule, FormsModule, QRCodeModule, IonButton, IonList, IonItem, IonInput, IonModal, IonTextarea, IonLabel, IonLoading, IonAlert]
 })
 export class GeneratePage implements OnInit {
   protected firstName: string | null = 'John'; // = null
@@ -33,10 +32,10 @@ export class GeneratePage implements OnInit {
   protected supportsCopy: boolean = false
   protected supportsNfc: boolean = false
   protected writingNfc: boolean = false
+  protected nfcAlertMessage: string | null = null
+  protected clipboardAlertMessage: string | null = null
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private platformLocation: PlatformLocation,
+  constructor(private platformLocation: PlatformLocation,
               private platform: Platform) { }
 
   ngOnInit() {
@@ -62,17 +61,11 @@ export class GeneratePage implements OnInit {
       await Clipboard.write({
         string: this.link!
       });
-      await Dialog.alert({
-        title: 'Clipboard',
-        message: 'Copied to clipboard!',
-      });
+      this.clipboardAlertMessage = 'Copied to clipboard!';
     }catch (e) {
       console.error(e);
-      await Dialog.alert({
-        title: 'Clipboard',
-        // @ts-ignore
-        message: e.message,
-      });
+      // @ts-ignore
+      this.clipboardAlertMessage = e.message;
     }
   }
 
@@ -86,6 +79,7 @@ export class GeneratePage implements OnInit {
     let t = setTimeout(() => {
       if(this.writingNfc) {
         abortController.abort();
+        this.nfcAlertMessage = "No tag found to write!";
       }
     }, 5000);
     try {
@@ -96,18 +90,12 @@ export class GeneratePage implements OnInit {
         signal: abortController.signal
       });
       this.writingNfc = false;
-      await Dialog.alert({
-        title: 'NFC',
-        message: "Tag written!",
-      });
+      this.nfcAlertMessage = "Tag written!";
     } catch(e) {
       this.writingNfc = false;
       console.error(e);
-      await Dialog.alert({
-        title: 'NFC',
-        // @ts-ignore
-        message: e.message,
-      });
+      // @ts-ignore
+      this.nfcAlertMessage = e.message;
     }
     clearTimeout(t);
     this.writingNfc = false;

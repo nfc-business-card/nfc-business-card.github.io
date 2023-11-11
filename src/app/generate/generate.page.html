@@ -58,6 +58,20 @@
             <ion-label>Write NFC Tag</ion-label>
           </ion-item>
         </ion-list>
+        <ion-alert
+          [isOpen]="clipboardAlertMessage !== null"
+          header="Clipboard"
+          [message]="clipboardAlertMessage"
+          [buttons]="['OK']"
+          (didDismiss)="clipboardAlertMessage = null"
+        ></ion-alert>
+        <ion-alert
+          [isOpen]="nfcAlertMessage !== null"
+          header="NFC"
+          [message]="nfcAlertMessage"
+          [buttons]="['OK']"
+          (didDismiss)="nfcAlertMessage = null"
+        ></ion-alert>
         <div class="ion-text-center">
           <qrcode [qrdata]="link!" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
