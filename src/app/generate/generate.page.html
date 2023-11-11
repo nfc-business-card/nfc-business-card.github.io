@@ -36,7 +36,7 @@
     Generate
   </ion-button>
   <ion-modal [isOpen]="link !== null" (didDismiss)="link = null">
-    <ion-loading trigger="open-loading" message="Tap NFC tag to write!" [isOpen]="writingNfc"></ion-loading>
+    <ion-loading message="Tap NFC tag to write!" [isOpen]="writingNfc"></ion-loading>
     <ng-template>
       <ion-header>
         <ion-toolbar>
