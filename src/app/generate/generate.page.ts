@@ -83,15 +83,15 @@ export class GeneratePage implements OnInit {
       if(this.writingNfc) {
         abortController.abort();
         this.nfcAlertMessage = "No tag found to write!";
+        abortController.abort();
       }
     }, 5000);
     try {
       // @ts-ignore
       const ndef = new NDEFReader();
       await ndef.write({
-        records: [{recordType: "url", data: this.link!}],
-        signal: abortController.signal
-      });
+        records: [{recordType: "url", data: this.link!}]
+      }, { signal: abortController.signal });
       this.writingNfc = false;
       this.nfcAlertMessage = "Tag written!";
     } catch(e) {
