@@ -63,6 +63,7 @@
           header="Clipboard"
           [message]="clipboardAlertMessage"
           [buttons]="['OK']"
+          [backdropDismiss]="false"
           (didDismiss)="clipboardAlertMessage = null"
         ></ion-alert>
         <ion-alert
@@ -70,6 +71,7 @@
           header="NFC"
           [message]="nfcAlertMessage"
           [buttons]="['OK']"
+          [backdropDismiss]="false"
           (didDismiss)="nfcAlertMessage = null"
         ></ion-alert>
         <div class="ion-text-center">
