@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonModule, PlatformLocation} from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, Platform} from '@ionic/angular';
 import {ActivatedRoute, Router} from "@angular/router";
 import { QRCodeModule } from 'angularx-qrcode';
 import { Clipboard } from '@capacitor/clipboard';
@@ -24,10 +24,11 @@ export class GeneratePage implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private platformLocation: PlatformLocation) { }
+              private platformLocation: PlatformLocation,
+              private platform: Platform) { }
 
   ngOnInit() {
-    this.supportsCopy = !!(typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText);
+    this.supportsCopy = !!(typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) || this.platform.is('capacitor');
   }
 
   generateLink() {
