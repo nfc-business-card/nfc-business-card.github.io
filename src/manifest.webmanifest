@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "NFC Business Card",
+  "short_name": "NFC Business Card",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
