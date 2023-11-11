@@ -44,7 +44,10 @@ export class GeneratePage implements OnInit {
   }
 
   generateLink() {
-    let link = this.platformLocation.protocol+'//'+this.platformLocation.hostname+':'+this.platformLocation.port+'/card#';
+    let link = this.platformLocation.protocol+'//'+this.platformLocation.hostname;
+    if(this.platformLocation.port != null)
+      link += ':'+this.platformLocation.port;
+    link += '/card#';
 
     link += btoa(JSON.stringify({
       f: this.firstName,
