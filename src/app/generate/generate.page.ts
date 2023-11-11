@@ -45,7 +45,7 @@ export class GeneratePage implements OnInit {
 
   generateLink() {
     let link = this.platformLocation.protocol+'//'+this.platformLocation.hostname;
-    if(this.platformLocation.port != null)
+    if(this.platformLocation.port)
       link += ':'+this.platformLocation.port;
     link += '/card#';
 
