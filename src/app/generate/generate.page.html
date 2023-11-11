@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Generate New NFC Business Card Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Generate New NFC Business Card Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+
+    <ion-item>
+      <ion-input label="First Name" [(ngModel)]="firstName" labelPlacement="fixed" placeholder="John"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Last Name" [(ngModel)]="lastName" labelPlacement="fixed" placeholder="Doe"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Email Address" [(ngModel)]="email" type="email" labelPlacement="fixed" placeholder="john@example.com"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Mobile Phone" [(ngModel)]="telephone" type="tel" labelPlacement="fixed" placeholder="+123 123 123 123"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <ion-button expand="block" (click)="generateLink()" class="ion-margin">
+    Generate
+  </ion-button>
+  <ion-modal [isOpen]="link !== null" (didDismiss)="link = null">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Generated Link</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="link = null">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-list>
+          <ion-item>
+            <ion-textarea id="link_encoded" label="Link to encode" [ngModel]="link!" [autoGrow]="true" labelPlacement="stacked" placeholder="https://..."></ion-textarea>
+          </ion-item>
+          <ion-item [button]="true" (click)="copyToClipboard()" *ngIf="supportsCopy">
+            <ion-label>Copy to clipboard</ion-label>
+          </ion-item>
+        </ion-list>
+        <div class="ion-text-center">
+          <qrcode [qrdata]="link!" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

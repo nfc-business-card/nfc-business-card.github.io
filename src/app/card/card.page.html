@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>NFC Business Card</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">NFC Business Card</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-content>
+      Please scan a qr code on a business card or tap a nfc tag with a business card to open details.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="setOpen(true)" *ngIf="businessCard" class="ion-margin">Open last card</ion-button>
+
+  <ion-modal [isOpen]="isModalOpen" [canDismiss]="canDismiss" (ionModalDidDismiss)="onDismiss()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{businessCard?.f}} {{businessCard?.l}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngIf="businessCard?.f">
+            <ion-input label="First Name" [ngModel]="businessCard?.f" [readonly]="true" labelPlacement="fixed" placeholder="John"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="businessCard?.l">
+            <ion-input label="Last Name" [ngModel]="businessCard?.l" [readonly]="true" labelPlacement="fixed" placeholder="Doe"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="businessCard?.e">
+            <ion-input label="Email Address" [ngModel]="businessCard?.e" [readonly]="true" type="email" labelPlacement="fixed" placeholder="john@example.com"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="businessCard?.t">
+            <ion-input label="Mobile Phone" [ngModel]="businessCard?.t" [readonly]="true" type="tel" labelPlacement="fixed" placeholder="+123 123 123 123"></ion-input>
+          </ion-item>
+
+        </ion-list>
+        <ion-button expand="block" (click)="addToContacts()" class="ion-margin">
+          Add to Contacts
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
