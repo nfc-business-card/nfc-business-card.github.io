@@ -95,10 +95,13 @@ export class GeneratePage implements OnInit {
       this.writingNfc = false;
       this.nfcAlertMessage = "Tag written!";
     } catch(e) {
+      if(this.writingNfc) {
+        // @ts-ignore
+        this.nfcAlertMessage = e.message;
+      }
+
       this.writingNfc = false;
       console.error(e);
-      // @ts-ignore
-      this.nfcAlertMessage = e.message;
     }
     clearTimeout(t);
     this.writingNfc = false;
